@@ -7,20 +7,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
-
 ## Routes
 
-POST /api/register
-POST /api/login
-
-GET	/api/posts
-GET	/api/posts/create
-POST /api/posts
-GET	/api/posts/{post}
-GET	/api/posts/{post}/edit
-PUT /api/posts/{post}
-DELETE /api/posts/{post}
+<p>POST /api/register</p>
+<p>POST /api/login</p>
+<br>
+<p>GET	/api/posts</p>
+<p>GET	/api/posts/create</p>
+<p>POST /api/posts</p>
+<p>GET	/api/posts/{post}</p>
+<p>GET	/api/posts/{post}/edit</p>
+<p>PUT /api/posts/{post}</p>
+<p>DELETE /api/posts/{post}</p>
 
 ## License
 
