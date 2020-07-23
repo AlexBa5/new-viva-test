@@ -96,5 +96,43 @@
                 </div>
             </div>
         </div>
+        <script>
+            // data = {
+            //     name: 'alex',
+            //     email: 'alex@alex.com',
+            //     password: 'Green2018',
+            //     c_password: 'Green2018',
+            // };
+
+            
+
+
+
+
+            data = {
+                email: 'alex@alex.com',
+                password: 'Green2018',
+            };
+
+            fetch('http://new-viva-test/api/login', { 
+               method: 'post', 
+               headers: new Headers({
+                 'Content-Type': 'application/json'
+               }), 
+               body: JSON.stringify(data)
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+
+                fetch('http://new-viva-test/api/user', { 
+                   method: 'post', 
+                   headers: new Headers({
+                     'Authorization': `Bearer ${data.data.token}`, 
+                     'Content-Type': 'application/json'
+                   }), 
+                });
+                
+            });
+        </script>
     </body>
 </html>
