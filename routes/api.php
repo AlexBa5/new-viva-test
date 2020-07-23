@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', 'api\AuthController@register');
 Route::post('login', 'api\AuthController@login');
 
-Route::post('user', 'api\UsersController@user');
+Route::apiResource('post', 'api\UsersController');
+Route::apiResource('user', 'api\UsersController');
