@@ -2,7 +2,7 @@
    
 namespace App\Http\Controllers\api;
    
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\api\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -17,9 +17,13 @@ class AuthController extends BaseController
                 'name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-                'c_password' => 'required|same:password',
+                'spassword' => 'required|same:password',
             ]
         );
+
+        if(User::where('email', $request->email)->value('id') !== null) {
+            return $this->sendError( 'User exists' );
+        }
    
         if( $validator->fails() ){
             return $this->sendError( $validator->errors() );       

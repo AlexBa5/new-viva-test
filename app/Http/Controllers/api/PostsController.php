@@ -1,15 +1,20 @@
 <?php
    
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\api;
    
 use Validator;
 use App\Post;
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\api\BaseController;
 use App\Http\Resources\PostResource;
    
 class PostsController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only(['store', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,7 @@ class PostsController extends BaseController
     public function index()
     {
         $posts = Post::all();
-        return $this->sendResponse( PostResource::collection($posts) );
+        return $this->sendResponse( PostResource::collection($posts), 'Posts found' );
     }
 
     /**
@@ -29,6 +34,8 @@ class PostsController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->middleware('auth:api');
+
         $input = $request->all();
    
         $validator = Validator::make($input, [
@@ -59,7 +66,7 @@ class PostsController extends BaseController
             return $this->sendError('Post was not found.');
         }
    
-        return $this->sendResponse( new PostResource($post) );
+        return $this->sendResponse( new PostResource($post), 'Posts selected' );
     }
     
     /**

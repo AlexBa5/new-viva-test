@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\api\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
 use App\User;
+use Validator;
 
 class UsersController extends BaseController
 {
@@ -23,7 +24,7 @@ class UsersController extends BaseController
     public function index()
     {
         $users = User::all();
-        return $this->sendResponse( UserResource::collection($users) );
+        return $this->sendResponse( UserResource::collection($users), 'Users listed' );
     }
 
     /**
@@ -39,7 +40,7 @@ class UsersController extends BaseController
         $validator = Validator::make($input, [
             'name' => 'required',
             'password' => 'required',
-            'c_password' => 'required|same:password',
+            'spassword' => 'required|same:password',
             'email' => 'required|email'
         ]);
    
@@ -68,7 +69,7 @@ class UsersController extends BaseController
             return $this->sendError('User was not found.');
         }
    
-        return $this->sendResponse( new UserResource($user) );
+        return $this->sendResponse( new UserResource($user), 'User selected' );
     }
     
     /**
@@ -81,11 +82,11 @@ class UsersController extends BaseController
     public function update(Request $request, User $user)
     {
         $input = $request->all();
-   
+
         $validator = Validator::make($input, [
             'name' => 'required',
             'password' => 'required',
-            'c_password' => 'required|same:password',
+            'spassword' => 'required|same:password',
             'email' => 'required|email'
         ]);
    
